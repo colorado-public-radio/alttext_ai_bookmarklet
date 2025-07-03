@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Alt-text generator bookmarklet</title>
+  </head>
+  <body>
+    <header>Alt-text generator bookmarklet</header>
+    <main>
+	<h3>Test vision language models (VLMs) against images in our library</h3>
+	<p>This bookmarklet allows its users to to get recommendations of alt-text images from two (soon more) VLMs as a way to test those models. This is just a testing tool to see if automated alt-text is even an option. If it is we can more deeply integrate automated alt-text into our processes.</p>
+
+	<h3>Instructions</h3>
+	<ul>
+		<li>Click the following link:
+<a href="
+		 javascript: (() => {
+			var s = document.createElement('script');
+			s.type = 'text/javascript';
+			s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/alttext.js';
+			try {
+				s.appendChild(document.createTextNode(src));
+				document.body.appendChild(s);
+			} catch (e) {
+				s.text = 'Unable to load the alt-text script!';
+				document.body.appendChild(s);
+			}
+
+		 })();">
+		 Alt-text generator</a> and drag it up to your toolbar</li>
+		<li>Navigate to a WordPress image library:
+			<ul>
+				<li><a href="https://content.cpr.org/wp-admin/upload.php?mode=grid" target="_cpr">CPR</a></li>
+				<li><a href="https://content.denverite.com/wp-admin/upload.php?mode=grid" target = "_den">Denverite</a></li>
+			</ul>
+		</li>
+		<li>Make sure you are in Grid Mode:<br/><img src="./images/gallery_grid.png" alt="WordPress image gallery with an indicator of grid mode"></li>
+		<li>Click an image in the library and it will open up the Attachment Details modal.</li>
+		<li>Click your bookmarklet and wait a few seconds</li>
+		<li>An alert will pop up showing two (soon more) alt-text attempts from two different VLMs</li>
+	</ul>
+	<p>That's it so far. As you can see there's no automated way to add the alt-text to the image. That's just because this is only a proof of concept and isn't designed for production.</p>
+	<p>At least one more model coming soon!</p>
+
+	</main>
+    <footer></footer>
+  </body>
+</html>
