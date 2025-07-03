@@ -2,6 +2,6 @@
   "name": "alt-text-bookmarklet",
   "compatibility_date": "2025-05-11",
   "assets": {
-    "directory": "./dist"
+    "directory": "."
   }
 }
