@@ -29,11 +29,6 @@ function createModal(id) {
 	console.log('id is '+id);
 	var modalHolder = document.getElementById(id);
 	modalHolder.appendChild(modal);
-    // document.getElementsByClassName("settings")[0].appendChild(modal);
-
-	// keeping this here to test if we are hitting it at the right time in load
-	// document.getElementById("acceptAltText").classList.add("components-button", "editor-post-publish-button", "editor-post-publish-button__button", "is-primary", "is-compact");
-
 
     // Close the modal when clicking outside the content
     modal.addEventListener('click', function(event) {
@@ -84,8 +79,39 @@ function setAltText(altText) {
     return false; // Not found
 }
 
+
 async function selectedImageMeta() {
-	/* Find the image src and the container it's in */
+    /* Find the image src and the container it's in */
+    const div = document.querySelector('.components-resizable-box__container.has-show-handle');
+
+    // Check if the div exists
+    if (!div) {
+        console.log("No image container found.");
+        return { error: "No image container found. Did you select an image?" };
+    }
+
+    const img = div.querySelector('img');
+    if (!img) {
+        console.log("No image found inside the container.");
+        return { error: "No image found inside the container." };
+    }
+
+    const imgSrc = img.src;
+    const parentId = div.parentNode.id;
+
+    console.log(imgSrc);
+    console.log(parentId);
+
+    // Return an object (not an array) for clarity
+    return {
+        imgSrc: imgSrc,
+        parentId: parentId
+    };
+}
+
+/*
+async function selectedImageMeta() {
+	// Find the image src and the container it's in 
 	const div = document.querySelector('.components-resizable-box__container.has-show-handle');
 	const imgSrc = div.querySelector('img').src;
 	const parentId = div.parentNode.id;
@@ -100,29 +126,29 @@ async function selectedImageMeta() {
 	console.log('^^ before returning');
 	return ret;
 }
+	*/
 
 async function fetchAltTexts() {
 	/* Base function. Fetch alt text from all edge providers */
+	console.log('no this is new');
 	let llava         = 'https://alt-text-worker-llava.cprapps.workers.dev/?image_url=';
 	let origImageData = await selectedImageMeta();
-	console.log(origImageData );
-	console.log(origImageData['imgSrc']); 
-	console.log(origImageData['parentId']); 
-	console.log('origImageData ^^');
-	let origImage = origImageData['imgSrc']; 
-	let parent = origImageData['parentId']; 
-	console.log("parent is "+parent+" and origImage is "+origImage);
-	createModal(parent);
-	if(origImage) {
+	if(origImageData.error) {
+		console.error(origImageData.error);
+		alert("I (insofar as I have a sense of self) can't find an image. Did you select one on the page?");
+	} else {
+		console.log(origImageData );
+		console.log(origImageData.imgSrc); 
+		console.log(origImageData.parentId); 
+		console.log('origImageData ^^');
+		let origImage = origImageData.imgSrc; 
+		let parent = origImageData.parentId; 
+		console.log("parent is "+parent+" and origImage is "+origImage);
+		createModal(parent);
 		let imageUrl      = "https://www.cpr.org/cdn-cgi/image/width=1080,quality=75,format=auto/"+origImage;
 		let llavaText     = await fetchAltText(llava+imageUrl);
-		// let altAiText     = await altTextAI(imageUrl);
-		// let alertContent = "LLava LVM:\n"+llavaText+"\n\nQwen LVM:\n"+qwenText;
-		// alert(alertContent);
 		document.getElementById('llava').value=llavaText;
 		document.getElementById('lvmLoadingMessage').innerHTML="Here's what the machine came up with!";
-	} else {
-		document.getElementById('lvmLoadingMessage').innerHTML="Can't find an image. Did you select one?";
 	}
 }
 
@@ -146,3 +172,4 @@ function genModalContent() {
 	console.log("in the function"+modalInner);
     document.getElementById('modalContent').innerHTML = modalInner;
 }
+fetchAltTexts();
