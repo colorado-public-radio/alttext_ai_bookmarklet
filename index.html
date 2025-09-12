@@ -5,12 +5,40 @@
     <title>Alt-text generator bookmarklet</title>
   </head>
   <body>
-    <header>Alt-text generator bookmarklet</header>
+    <header>Alt-text generator bookmarklets</header>
     <main>
-	<h3>Test vision language models (VLMs) against images in our library</h3>
+
+	<!-- VLM for posts -->
+	<h2>Alt-text for post images</h2>
+	<p>This bookmarklet generates alt-text for any image block you select in a post. Unfortunately featured images aren't exposed in a post in the same way, so it only works for any image block.</p>
+
+	<h3>Instructions</h3>
+	
+
+	<ul>
+		<li>Mouse-down on the following link (but don't complete the click):
+<a href="javascript: (() => {var s = document.createElement('script');s.type = 'text/javascript';s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/post_level_alt.js';try {s.appendChild(document.createTextNode(src));document.body.appendChild(s);} catch (e) {s.text = 'Unable to load the alt-text script!';document.body.appendChild(s);} })();">
+		 Post image alt-text</a> and drag it up to your toolbar</li>
+		<li>Navigate to a post page</li>
+		<li>Click on an image</li>
+		<li>Click on the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
+		<li>Edit the resulting alt-text if you need, then click "I like it!"</li>
+		<li>Repeat on any other images on the page</li>
+		<li>Save your post and you're done!</li>
+	</ul>
+
+
+
+
+
+
+	<!-- VLM tester -->
+
+	<h2>Test vision language models (VLMs) against images in our library</h2>
 	<p>This bookmarklet allows its users to to get recommendations of alt-text images from two (soon more) VLMs as a way to test those models. This is just a testing tool to see if automated alt-text is even an option. If it is we can more deeply integrate automated alt-text into our processes.</p>
 
 	<h3>Instructions</h3>
+
 	<ul>
 		<li>Mouse-down on the following link (but don't complete the click):
 <a href="
