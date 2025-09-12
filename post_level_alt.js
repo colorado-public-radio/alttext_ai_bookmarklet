@@ -63,20 +63,10 @@ async function fetchAltText(url) {
 }
 
 function setAltText(altText) {
-    const labels = document.querySelectorAll('label.components-base-control__label');
-    for (const label of labels) {
-        if (label.textContent.trim() === "Alternative text") {
-            const container = label.closest('.components-base-control__field');
-            if (container) {
-                const textarea = container.querySelector('textarea');
-                if (textarea) {
-                    textarea.value = altText;
-                    return true; // Success
-                }
-            }
-        }
-    }
-    return false; // Not found
+    const selectedBlock = wp.data.select('core/block-editor').getSelectedBlock();
+	 wp.data.dispatch('core/block-editor').updateBlockAttributes(selectedBlock.clientId, {
+        alt: altText
+    });
 }
 
 
