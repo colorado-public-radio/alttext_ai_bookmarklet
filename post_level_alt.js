@@ -173,4 +173,3 @@ function genModalInner() {
 	`;
 	document.getElementById('modalContent').innerHTML = modalInner;
 }
-fetchAltTexts();
