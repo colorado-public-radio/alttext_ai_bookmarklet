@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Alt-text generator bookmarklet</title>
@@ -7,88 +7,80 @@
   <body>
     <header>Alt-text generator bookmarklets</header>
     <main>
+      <!-- VLM for posts -->
+      <h2 id="post-images">Alt-text for post images</h2>
+      <p>This bookmarklet generates alt-text for any image block you select in a post. Unfortunately featured images aren't exposed in a post in the same way, so it only works for any image block.</p>
 
-	<!-- VLM for posts -->
-	<h2>Alt-text for post images</h2>
-	<p>This bookmarklet generates alt-text for any image block you select in a post. Unfortunately featured images aren't exposed in a post in the same way, so it only works for any image block.</p>
+      <h3>Instructions</h3>
+      <p>First, mouse-down on the link below (but don't complete the click) and drag it up to your toolbar:</p>
 
-	<h3>Instructions</h3>
+      <p>
+        <a href="javascript: (() => { if (typeof fetchAltTexts === 'function') { fetchAltTexts(); } else { const s = document.createElement('script'); s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/post_level_alt.js'; s.onload = () => { fetchAltTexts(); }; document.body.appendChild(s); } })();">
+          Post Image Alt-Text Generator
+        </a>
+      </p>
 
-	<p>First, Mouse-down on the link below (but don't complete the click) and drag it up to your toolbar:</p>
-	
-	<p>
-	<a href="javascript: (() => { if (typeof fetchAltTexts === 'function') { fetchAltTexts(); } else { const s = document.createElement('script'); s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/post_level_alt.js'; s.onload = () => { fetchAltTexts(); }; document.body.appendChild(s); } })();"> Post image alt-text </a> 
-	</p>
-<p>It will create a bookmarklet called "Post image alt-text".</p>
+      <p>It will create a bookmarklet called "Post Image Alt-Text Generator".</p>
 
-<p>Next, depending on the image that needs alt-text follow the instructions below.</p>
+      <p>Next, depending on the image that needs alt-text, follow the instructions below.</p>
 
-	<h4>Featured image</h4>
-	<ul>
-		<li>Log into the dashboard and select a post to edit</li>
-		<li>Click the featured image at the top of the right rail</li>
-		<li>Once the featured image loads from the library, click the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
-		<li>Edit the resulting alt-text if you need, then click "I like it!"</li>
-		<li>Click "Set featured image"</li>
-		<li>Save your post and you're done!</li>
-	</ul></li>
-	</ul>
-	
-	<h4>Post images</h4>
+      <h4>Featured image</h4>
+      <ul class="instructions">
+        <li>Log into the dashboard and select a post to edit</li>
+        <li>Click the featured image at the top of the right rail</li>
+        <li>Once the featured image loads from the library, click the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
+        <li>Edit the resulting alt-text if needed, then click "I like it!"</li>
+        <li>Click "Set featured image"</li>
+        <li>Save your post and you're done!</li>
+      </ul>
 
-	<ul>
-		<li>Log into the dashboard and select a post to edit</li>
-		<li>Click on a post image</li>
-		<li>Click on the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
-		<li>Edit the resulting alt-text if you need, then click "I like it!"</li>
-		<li>Repeat on any other images on the page</li>
-		<li>Save your post and you're done!</li>
-	</ul>
+      <h4>Post images</h4>
+      <ul class="instructions">
+        <li>Log into the dashboard and select a post to edit</li>
+        <li>Click on a post image</li>
+        <li>Click the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
+        <li>Edit the resulting alt-text if needed, then click "I like it!"</li>
+        <li>Repeat on any other images on the page</li>
+        <li>Save your post and you're done!</li>
+      </ul>
 
+      <!-- VLM tester -->
+      <h2 id="alt-tester">[Old] Test Vision Language Models (VLMs)</h2>
+      <p>This bookmarklet allows users to get recommendations of alt-text for images from our library using different VLMs. This is a testing tool to evaluate if automated alt-text is viable.</p>
 
-
-
-
-
-	<!-- VLM tester -->
-
-	<h2>[Old] Test vision language models (VLMs) against images in our library</h2>
-	<p>This bookmarklet allows its users to to get recommendations of alt-text images from two (soon more) VLMs as a way to test those models. This is just a testing tool to see if automated alt-text is even an option. If it is we can more deeply integrate automated alt-text into our processes.</p>
-
-	<h3>Instructions</h3>
-
-	<ul>
-		<li>Mouse-down on the following link (but don't complete the click):
-<a href="
-		 javascript: (() => {
-			var s = document.createElement('script');
-			s.type = 'text/javascript';
-			s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/alttext.js';
-			try {
-				s.appendChild(document.createTextNode(src));
-				document.body.appendChild(s);
-			} catch (e) {
-				s.text = 'Unable to load the alt-text script!';
-				document.body.appendChild(s);
-			}
-
-		 })();">
-		 Alt-text generator</a> and drag it up to your toolbar</li>
-		<li>Navigate to a WordPress image library:
-			<ul>
-				<li><a href="https://content.cpr.org/wp-admin/upload.php?mode=grid" target="_cpr">CPR</a></li>
-				<li><a href="https://content.denverite.com/wp-admin/upload.php?mode=grid" target = "_den">Denverite</a></li>
-			</ul>
-		</li>
-		<li>Make sure you are in Grid Mode:<br/><img src="./images/gallery_grid.png" alt="WordPress image gallery with an indicator of grid mode"></li>
-		<li>Click an image in the library and it will open up the Attachment Details modal.</li>
-		<li>Click your bookmarklet and wait a few seconds</li>
-		<li>An alert will pop up showing two (soon more) alt-text attempts from two different VLMs</li>
-	</ul>
-	<p>That's it so far. As you can see there's no automated way to add the alt-text to the image. That's just because this is only a proof of concept and isn't designed for production.</p>
-	<p>At least one more model coming soon!</p>
-
-	</main>
-    <footer></footer>
+      <h3>Instructions</h3>
+      <ul class="instructions">
+        <li>Mouse-down on the following link (but don't complete the click):
+          <a href="javascript: (() => {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/alttext.js';
+            try {
+              s.appendChild(document.createTextNode(src));
+              document.body.appendChild(s);
+            } catch (e) {
+              s.text = 'Unable to load the alt-text script!';
+              document.body.appendChild(s);
+            }
+          })();">
+            Alt-text Generator (Old)
+          </a>
+          and drag it up to your toolbar
+        </li>
+        <li>Navigate to a WordPress image library:
+          <ul>
+            <li><a href="https://content.cpr.org/wp-admin/upload.php?mode=grid" target="_cpr">CPR</a></li>
+            <li><a href="https://content.denverite.com/wp-admin/upload.php?mode=grid" target="_den">Denverite</a></li>
+          </ul>
+        </li>
+        <li>Make sure you are in Grid Mode:<br/>
+          <img src="./images/gallery_grid.png" alt="WordPress image gallery with an indicator of grid mode">
+        </li>
+        <li>Click an image in the library to open the Attachment Details modal</li>
+        <li>Click your bookmarklet and wait a few seconds</li>
+        <li>An alert will pop up showing alt-text attempts from different VLMs</li>
+      </ul>
+      <p>This is a proof of concept and doesn't automatically add alt-text to images.</p>
+    </main>
   </body>
 </html>
