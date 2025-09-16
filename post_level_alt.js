@@ -157,7 +157,7 @@ async function fetchAltTexts() {
 }
 
 function genModalInner() {
-	var modalInner = `<h3 id="lvmLoadingMessage">Getting LVM results ... <img style="height: 50px;" src="./waiting.svg"/></h3>
+	var modalInner = `<h3 id="lvmLoadingMessage">Getting LVM results ... <img style="height: 50px;" src="https://alt-text-bookmarklet.cprapps.workers.dev/waiting.svg"/></h3>
 	
 	<table>
 		<tr>
