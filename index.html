@@ -2,10 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alt-text generator bookmarklet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header>Alt-text generator bookmarklets</header>
+    <header class="mt-3 mb-4">Alt-text generator bookmarklets</header>
     <main>
       <!-- VLM for posts -->
       <h2 id="post-images">Alt-text for post images</h2>
@@ -14,8 +17,9 @@
       <h3>Instructions</h3>
       <p>First, mouse-down on the link below (but don't complete the click) and drag it up to your toolbar:</p>
 
-      <p>
-        <a href="javascript: (() => { if (typeof fetchAltTexts === 'function') { fetchAltTexts(); } else { const s = document.createElement('script'); s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/post_level_alt.js'; s.onload = () => { fetchAltTexts(); }; document.body.appendChild(s); } })();">
+      <p class="text-center">
+        <a href="javascript: (() => { if (typeof fetchAltTexts === 'function') { fetchAltTexts(); } else { const s = document.createElement('script'); s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/post_level_alt.js'; s.onload = () => { fetchAltTexts(); }; document.body.appendChild(s); } })();"
+          class="bookmarklet-btn fade-in">
           Post Image Alt-Text Generator
         </a>
       </p>
@@ -62,15 +66,16 @@
               s.text = 'Unable to load the alt-text script!';
               document.body.appendChild(s);
             }
-          })();">
+          })();"
+          class="bookmarklet-btn fade-in">
             Alt-text Generator (Old)
           </a>
           and drag it up to your toolbar
         </li>
         <li>Navigate to a WordPress image library:
           <ul>
-            <li><a href="https://content.cpr.org/wp-admin/upload.php?mode=grid" target="_cpr">CPR</a></li>
-            <li><a href="https://content.denverite.com/wp-admin/upload.php?mode=grid" target="_den">Denverite</a></li>
+            <li><a href="https://content.cpr.org/wp-admin/upload.php?mode=grid" target="_blank" rel="noopener noreferrer">CPR</a></li>
+            <li><a href="https://content.denverite.com/wp-admin/upload.php?mode=grid" target="_blank" rel="noopener noreferrer">Denverite</a></li>
           </ul>
         </li>
         <li>Make sure you are in Grid Mode:<br/>
@@ -80,7 +85,7 @@
         <li>Click your bookmarklet and wait a few seconds</li>
         <li>An alert will pop up showing alt-text attempts from different VLMs</li>
       </ul>
-      <p>This is a proof of concept and doesn't automatically add alt-text to images.</p>
+      <p class="mt-2">This is a proof of concept and doesn't automatically add alt-text to images.</p>
     </main>
   </body>
 </html>
