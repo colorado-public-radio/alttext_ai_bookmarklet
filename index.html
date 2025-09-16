@@ -15,7 +15,7 @@
       <p>This bookmarklet generates alt-text for any image block you select in a post. Unfortunately featured images aren't exposed in a post in the same way, so it only works for any image block.</p>
 
       <h3>Instructions</h3>
-      <p>First, mouse-down on the link below (but don't complete the click) and drag it up to your toolbar:</p>
+      <p>First, mouse-down on the button link below (but don't complete the click) and drag it up to your toolbar:</p>
 
       <p class="text-center">
         <a href="javascript: (() => { if (typeof fetchAltTexts === 'function') { fetchAltTexts(); } else { const s = document.createElement('script'); s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/post_level_alt.js'; s.onload = () => { fetchAltTexts(); }; document.body.appendChild(s); } })();"
@@ -33,7 +33,7 @@
         <li>Log into the dashboard and select a post to edit</li>
         <li>Click the featured image at the top of the right rail</li>
         <li>Once the featured image loads from the library, click the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
-        <li>Edit the resulting alt-text if needed, then click "I like it!"</li>
+        <li>Edit the resulting alt-text if needed, then click "Add alt text"</li>
         <li>Click "Set featured image"</li>
         <li>Save your post and you're done!</li>
       </ul>
@@ -43,7 +43,7 @@
         <li>Log into the dashboard and select a post to edit</li>
         <li>Click on a post image</li>
         <li>Click the bookmarklet. It will generate some alt-text and show it to you in a pop-up</li>
-        <li>Edit the resulting alt-text if needed, then click "I like it!"</li>
+        <li>Edit the resulting alt-text if needed, then click "Add alt text"</li>
         <li>Repeat on any other images on the page</li>
         <li>Save your post and you're done!</li>
       </ul>
