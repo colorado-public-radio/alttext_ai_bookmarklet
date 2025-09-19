@@ -43,6 +43,7 @@ function createModal(id) {
 	modal.addEventListener('click', function(event) {
 		if (event.target === modal) {
 			modalHolder.removeChild(modal);
+			return false;
 		}
 	});
 
@@ -153,11 +154,11 @@ async function fetchAltTexts() {
 		return;
 	}
 	document.getElementById('llava').value=llavaText.trim();
-	document.getElementById('lvmLoadingMessage').innerHTML="Here's what the machine came up with!";
+	document.getElementById('lvmLoadingMessage').innerHTML="Here's what the machine came up with! ";
 }
 
 function genModalInner() {
-	var modalInner = `<h3 id="lvmLoadingMessage">Getting LVM results ... <img style="height: 50px;" src="https://alt-text-bookmarklet.cprapps.workers.dev/waiting.svg"/></h3>
+	var modalInner = `<h3 id="lvmLoadingMessage">Getting LVM results ... <img style="float: right; height: 20px; position: relative; top: 4px;" src="https://alt-text-bookmarklet.cprapps.workers.dev/waiting.svg"/></h3>
 	
 	<table>
 		<tr>
