@@ -105,6 +105,8 @@ a:hover, a:active, a:focus {
 
 .bookmarklet-btn:hover {
   background-color: #cb5629;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 /* Lists */
