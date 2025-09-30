@@ -122,7 +122,7 @@ function setAltText(altText) {
 	if(isMediaLibraryOpen() && !isMediaLibraryCentral()) {
 		console.log('we think the librayr is open');
 		document.getElementById('attachment-details-alt-text').value = altText;
-	} else if (isMediaLibraryCentral) {
+	} else if (isMediaLibraryCentral()) {
 		console.log("we are in the media library and updating a value");
 
 		// get the attachment id
