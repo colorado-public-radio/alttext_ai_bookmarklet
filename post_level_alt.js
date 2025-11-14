@@ -60,7 +60,7 @@ function createModal(id) {
 	modal.addEventListener('click', function(event) {
 		if (event.target === modal) {
 			// Track abandonment
-			zaraz.track("Abandonment", { action: "Modal closed without submission" });
+			zaraz.track("Abandonment", { action: "alt_text:Modal closed without submission" });
 			modalHolder.removeChild(modal);
 			return false;
 		}
@@ -71,7 +71,7 @@ function createModal(id) {
 
 	document.getElementById("acceptAltText").addEventListener('click', function(event) {
 		// Track button click
-		zaraz.track("Button Click", { action: "Add alt text clicked" });
+		zaraz.track("Button Click", { action: "alt_text:Add alt text clicked" });
 		setAltText(document.getElementById('llava').value);
 		modalHolder.removeChild(modal);
 	});
@@ -102,7 +102,7 @@ function genModalInner() {
 
 	// Track textarea modifications
 	document.getElementById('llava').addEventListener('input', function() {
-		zaraz.track("Textarea Modified", { action: "Alt text edited" });
+		zaraz.track("Textarea Modified", { action: "alt_text:Alt text edited" });
 	});
 }
 
@@ -217,7 +217,7 @@ function isMediaLibraryCentral() {
 
 async function fetchAltTexts() {
 	// Track launch
-	zaraz.track("Bookmarklet Launched", { action: "Alt text generation started" });
+	zaraz.track("Bookmarklet Launched", { action: "alt_text:Alt text generation started" });
 
 	console.log("running fetchAltTexts");
 	/* Base function. Fetch alt text from all edge providers */
