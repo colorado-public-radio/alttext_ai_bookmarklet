@@ -2,7 +2,15 @@ const API_CONFIG = {
 	LLAVA_ENDPOINT: 'https://alt-text-worker-llava.cprapps.workers.dev/?image_url=',
 	IMAGE_CDN: 'https://www.cpr.org/cdn-cgi/image/width=1080,quality=75,format=auto/',
 	THUMB_CDN: 'https://www.cpr.org/cdn-cgi/image/width=300,quality=75,format=auto/',
-}; 
+};
+
+// Initialize Zaraz if not already loaded
+if (typeof zaraz === 'undefined') {
+    console.warn("Zaraz not loaded. Events will not be tracked.");
+    window.zaraz = {
+        track: (...args) => console.log("Zaraz Mock Track:", ...args),
+    };
+}
 
 function createModal(id) {
 	console.log('running createModal');
@@ -51,6 +59,8 @@ function createModal(id) {
 	// Close the modal when clicking outside the content
 	modal.addEventListener('click', function(event) {
 		if (event.target === modal) {
+			// Track abandonment
+			zaraz.track("Abandonment", { action: "Modal closed without submission" });
 			modalHolder.removeChild(modal);
 			return false;
 		}
@@ -60,6 +70,8 @@ function createModal(id) {
 	genModalInner();
 
 	document.getElementById("acceptAltText").addEventListener('click', function(event) {
+		// Track button click
+		zaraz.track("Button Click", { action: "Add alt text clicked" });
 		setAltText(document.getElementById('llava').value);
 		modalHolder.removeChild(modal);
 	});
@@ -68,7 +80,7 @@ function createModal(id) {
 function genModalInner() {
 	var modalInner = `
 		<h3 style='font-size: 1.3em; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; margin-top: 0' id="lvmLoadingMessage">Getting LVM results ... </h3>
-			
+
 			<table>
 				<tr>
 					<td>
@@ -85,9 +97,13 @@ function genModalInner() {
 					<td>&nbsp;</td>
 				</tr>
 			</table>
-
 	`;
 	document.getElementById('modalContent').innerHTML = modalInner;
+
+	// Track textarea modifications
+	document.getElementById('llava').addEventListener('input', function() {
+		zaraz.track("Textarea Modified", { action: "Alt text edited" });
+	});
 }
 
 async function fetchAltText(url) {
@@ -114,7 +130,6 @@ function saveLibrary(altText) {
 	wp.data.select( 'core' ).getEntityRecord( 'postType', 'attachment', 815587  );
 	wp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'attachment', 815587, { alt_text: 'Hello World' } );
 	wp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'attachment', 815587 );
-
 }
 
 function setAltText(altText) {
@@ -138,7 +153,6 @@ function setAltText(altText) {
 
 		// update the box so it looks like it happened, then cross your fingers it actually did
 		document.querySelector('[aria-describedby="alt-text-description"]').value = altText;
-
 	} else {
 		console.log('punting to in-post');
 		const selectedBlock = wp.data.select('core/block-editor').getSelectedBlock();
@@ -164,7 +178,6 @@ function selectedImageMeta() {
 
 	const imgSrc = img.src;
 	const parentId = div.parentNode.id;
-
 
 	// Return an object (not an array) for clarity
 	return {
@@ -203,6 +216,9 @@ function isMediaLibraryCentral() {
 }
 
 async function fetchAltTexts() {
+	// Track launch
+	zaraz.track("Bookmarklet Launched", { action: "Alt text generation started" });
+
 	console.log("running fetchAltTexts");
 	/* Base function. Fetch alt text from all edge providers */
 
@@ -231,8 +247,8 @@ async function fetchAltTexts() {
 			console.error(origImageData.error);
 			alert("I (insofar as I have a sense of self) can't find an image. Did you select one on the page?");
 		} else {
-			origImage = origImageData.imgSrc; 
-			parent = origImageData.parentId; 
+			origImage = origImageData.imgSrc;
+			parent = origImageData.parentId;
 			createModal(parent);
 		}
 	}
