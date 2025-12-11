@@ -149,7 +149,6 @@ async function setAltText(altText) {
 
 		try {
 			// First ensure the record is loaded
-			console.log('checking receiveEntityRecords');
 			await wp.data.dispatch('core').receiveEntityRecords(
 				'postType',
 				'attachment',
@@ -157,8 +156,13 @@ async function setAltText(altText) {
 				{ refresh: true }
 			);
 
-			// Now edit and save
-			console.log('editing');
+			// Check if record exists before editing
+			const record = wp.data.select('core').getEntityRecord('postType', 'attachment', attachmentId);
+			if (!record) {
+				throw new Error('Attachment record not found');
+			}
+
+			// Edit the record
 			await wp.data.dispatch('core').editEntityRecord(
 				'postType',
 				'attachment',
@@ -166,25 +170,22 @@ async function setAltText(altText) {
 				{ alt_text: altText }
 			);
 
-			console.log('doing the savedEditedEntityRecord dingus');
-			await wp.data.dispatch('core').saveEditedEntityRecord(
-				'postType',
-				'attachment',
-				attachmentId
-			);
-
-			// update the box
-			const input = document.querySelector('[aria-describedby="alt-text-description"]');
-			if (input) {
-				console.log('updating the box');
-				input.value = altText;
+			// Try saving, but don't fail if it doesn't work
+			try {
+				await wp.data.dispatch('core').saveEditedEntityRecord(
+					'postType',
+					'attachment',
+					attachmentId
+				);
+			} catch (saveError) {
+				console.warn('Could not save entity record, but changes were applied:', saveError);
 			}
+
 		} catch (error) {
 			console.error('Error updating alt text:', error);
-			// Fallback to direct DOM update if API fails
-			console.log('updating the dom');
+			// Only fallback to DOM update if the record edit failed completely
 			const input = document.querySelector('[aria-describedby="alt-text-description"]');
-			if (input) {
+			if (input && input.value !== altText) {
 				input.value = altText;
 			}
 		}
