@@ -132,10 +132,11 @@ function saveLibrary(altText) {
 	wp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'attachment', 815587 );
 }
 
-function setAltText(altText) {
+async function setAltText(altText) {
 	console.log('running setAlt');
+
 	if(isMediaLibraryOpen() && !isMediaLibraryCentral()) {
-		console.log('we think the librayr is open');
+		console.log('we think the library is open');
 		document.getElementById('attachment-details-alt-text').value = altText;
 	} else if (isMediaLibraryCentral()) {
 		console.log("we are in the media library and updating a value");
@@ -146,19 +147,56 @@ function setAltText(altText) {
 
 		console.log("id is "+attachmentId);
 
-		// use wp js api to update it
-		wp.data.select( 'core' ).getEntityRecord( 'postType', 'attachment', attachmentId  );
-		wp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'attachment', attachmentId, { alt_text: altText } );
-		wp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'attachment', attachmentId );
+		try {
+			// First ensure the record is loaded
+			console.log('checking receiveEntityRecords');
+			await wp.data.dispatch('core').receiveEntityRecords(
+				'postType',
+				'attachment',
+				{ include: [attachmentId] },
+				{ refresh: true }
+			);
 
-		// update the box so it looks like it happened, then cross your fingers it actually did
-		document.querySelector('[aria-describedby="alt-text-description"]').value = altText;
+			// Now edit and save
+			console.log('editing');
+			await wp.data.dispatch('core').editEntityRecord(
+				'postType',
+				'attachment',
+				attachmentId,
+				{ alt_text: altText }
+			);
+
+			console.log('doing the savedEditedEntityRecord dingus');
+			await wp.data.dispatch('core').saveEditedEntityRecord(
+				'postType',
+				'attachment',
+				attachmentId
+			);
+
+			// update the box
+			const input = document.querySelector('[aria-describedby="alt-text-description"]');
+			if (input) {
+				console.log('updating the box');
+				input.value = altText;
+			}
+		} catch (error) {
+			console.error('Error updating alt text:', error);
+			// Fallback to direct DOM update if API fails
+			console.log('updating the dom');
+			const input = document.querySelector('[aria-describedby="alt-text-description"]');
+			if (input) {
+				input.value = altText;
+			}
+		}
 	} else {
 		console.log('punting to in-post');
 		const selectedBlock = wp.data.select('core/block-editor').getSelectedBlock();
-		 wp.data.dispatch('core/block-editor').updateBlockAttributes(selectedBlock.clientId, {
-			alt: altText
-		});
+		if (selectedBlock) {
+			wp.data.dispatch('core/block-editor').updateBlockAttributes(
+				selectedBlock.clientId,
+				{ alt: altText }
+			);
+		}
 	}
 }
 
