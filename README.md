@@ -1,4 +1,4 @@
-# WordPress Alt-Text Bookmarklet
+# WordPress alt-text bookmarklet
 
 This bookmarklet helps WordPress users generate and add alt-text to images within the WordPress dashboard without having to think about it. It uses Cloudflare's edge AI tools to suggest alt-text for images in stories or the media library. It's an MVP for a full plugin but if you have a Cloudflare account it does okay on its own.
 
@@ -8,7 +8,7 @@ This bookmarklet helps WordPress users generate and add alt-text to images withi
 * A Cloudflare account that includes their CDN and AI edge models
 * A Cloudflare [vision language model](https://github.com/colorado-public-radio/alt-text-worker/tree/model-llava) to process the image and return text
 
-## How It Works
+## How it works
 
 #### From within the image library
 
