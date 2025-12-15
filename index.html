@@ -30,6 +30,14 @@
 
       <p>Next, depending on the image that needs alt-text, follow the instructions below.</p>
 
+      <h4>From within the image library</h4>
+      <ul class="instructions">
+		<li>Log into the dashboard and select Media &#8594; Library</li>
+        <li>Click the image that needs alt text</li>
+        <li>Click your bookmarklet</li>
+        <li>Edit the resulting alt-text if needed, then click "Add alt text"</li>
+      </ul>
+
       <h4>Featured image</h4>
       <ul class="instructions">
         <li>Log into the dashboard and select a post to edit</li>
@@ -49,34 +57,6 @@
         <li>Repeat on any other images on the page</li>
         <li>Save your post and you're done!</li>
       </ul>
-
-      <!-- VLM tester -->
-      <h2 id="alt-tester">[Old] Test Vision Language Models (VLMs)</h2>
-      <p>This bookmarklet allows users to get recommendations of alt-text for images from our library using different VLMs. This is a testing tool to evaluate if automated alt-text is viable.</p>
-
-      <h3>Instructions</h3>
-      <ul class="instructions">
-        <li>Mouse-down on the following link (but don't complete the click):
-          <a href="javascript: (() => { var s = document.createElement('script'); s.type = 'text/javascript'; s.src = 'https://alt-text-bookmarklet.cprapps.workers.dev/alttext.js'; try { s.appendChild(document.createTextNode(src)); document.body.appendChild(s); } catch (e) { s.text = 'Unable to load the alt-text script!'; document.body.appendChild(s); } })();"
-          class="bookmarklet-btn fade-in">
-            Alt-text Generator (Old)
-          </a>
-          and drag it up to your toolbar
-        </li>
-        <li>Navigate to a WordPress image library:
-          <ul>
-            <li><a href="https://content.cpr.org/wp-admin/upload.php?mode=grid" target="_blank" rel="noopener noreferrer">CPR</a></li>
-            <li><a href="https://content.denverite.com/wp-admin/upload.php?mode=grid" target="_blank" rel="noopener noreferrer">Denverite</a></li>
-          </ul>
-        </li>
-        <li>Make sure you are in Grid Mode:<br/>
-          <img src="./images/gallery_grid.png" alt="WordPress image gallery with an indicator of grid mode">
-        </li>
-        <li>Click an image in the library to open the Attachment Details modal</li>
-        <li>Click your bookmarklet and wait a few seconds</li>
-        <li>An alert will pop up showing alt-text attempts from different VLMs</li>
-      </ul>
-      <p class="mt-2">This is a proof of concept and doesn't automatically add alt-text to images.</p>
     </main>
   </body>
 </html>
