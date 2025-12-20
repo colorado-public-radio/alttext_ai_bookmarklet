@@ -7,6 +7,7 @@ This bookmarklet helps WordPress users generate and add alt-text to images withi
 * A WordPress media library with images in it
 * A Cloudflare account that includes their CDN and AI edge models
 * A Cloudflare [vision language model](https://github.com/colorado-public-radio/alt-text-worker/tree/model-llava) to process the image and return text
+* A Cloudflare worker to hit, such as [this one](https://github.com/colorado-public-radio/alt-text-worker/)
 
 ## How it works
 
