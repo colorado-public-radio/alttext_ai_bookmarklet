@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alt-text generator bookmarklet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="mt-3 mb-4">
+      <h2>Cache purge bookmarklet</h2>
+    </header>
+    <main>
+      <!-- VLM for posts -->
+      <h2 id="post-images">It might just do the trick</h2>
+      <p>This bookmarklet helps you clear Cloudflare's cache on a recently updated post. It probably won't help for posts that show a 404.</p>
+
+      <h3>Instructions</h3>
+      <p>First, mouse-down on the button link below (but don't complete the click) and drag it up to your toolbar:</p>
+
+      <p class="text-center">
+        <a href="javascript: (() => { if (typeof gatherUrl === 'function') { gatherUrl(); } else { const s = document.createElement('script'); s.src = 'https://purge-cache.cprapps.workers.dev/bookmarklet.js'; s.onload = () => { gatherUrl(); }; document.body.appendChild(s); } })();"
+          class="bookmarklet-btn fade-in">
+          Cache purge bookmarklet
+        </a>
+      </p>
+
+      <p>It will create a bookmarklet called "Cache purge bookmarklet".</p>
+
+      <p>When you run into a page that doesn't show a recent update, click the bookmarklet and paste the page's URL into the little pop-up box.</p>
+      <p>If Cloudflare successfully purges the cache you'll see a pop-up saying so. If it doesn't successfully purge the cache you will see a pop-up saying it failed.</p>
+      <p>If you click the little check-box that disallows pop-ups from cpr.org then you are out of luck.</p>
+
+    </main>
+  </body>
+</html>
